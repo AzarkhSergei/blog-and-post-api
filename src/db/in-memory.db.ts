@@ -25,5 +25,33 @@ export const db = {
       websiteUrl: "https://healthyliving.life",
     },
   ],
-  posts: <PostViewModel[]>[],
+  posts: <PostViewModel[]>[
+    {
+      id: "1",
+      title: "The Future of Web Frameworks",
+      shortDescription: "Exploring what's next for React, Angular, and Vue.",
+      content:
+        "A deep dive into the evolution of modern JavaScript frameworks and where they're heading next.",
+      blogId: "1",
+      blogName: "Tech Insights",
+    },
+    {
+      id: "2",
+      title: "Top 5 Hidden Gems in Europe",
+      shortDescription: "Discover the most underrated travel destinations.",
+      content:
+        "From the Albanian Riviera to Slovenia's lakes — explore lesser-known yet breathtaking European locations.",
+      blogId: "2",
+      blogName: "Travel Diaries",
+    },
+    {
+      id: "3",
+      title: "Morning Routines for a Healthier Life",
+      shortDescription: "Simple steps to boost energy and mood every morning.",
+      content:
+        "Learn how a few mindful habits can transform your day and improve your overall well-being.",
+      blogId: "3",
+      blogName: "Healthy Living",
+    },
+  ],
 };
