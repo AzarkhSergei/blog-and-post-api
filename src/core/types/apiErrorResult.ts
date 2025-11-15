@@ -1,3 +1,3 @@
 import { FieldError } from "./fieldError";
 
-export type APIErrorResult = { errorMessages: FieldError[] };
+export type APIErrorResult = { errorsMessages: FieldError[] };

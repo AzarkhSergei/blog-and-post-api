@@ -9,7 +9,7 @@ import { HttpStatus } from "../../types/http-statuses";
 import { APIErrorResult } from "../../types/apiErrorResult";
 
 export const createErrorMessages = (errors: FieldError[]): APIErrorResult => {
-  return { errorMessages: errors };
+  return { errorsMessages: errors };
 };
 
 const formatErrors = (error: ValidationError): FieldError => {
@@ -31,7 +31,7 @@ export const inputValidationResultMiddleware = (
     .array({ onlyFirstError: true });
 
   if (errors.length > 0) {
-    res.status(HttpStatus.BadRequest).json({ errorMessages: errors });
+    res.status(HttpStatus.BadRequest).json({ errorsMessages: errors });
     return;
   }
 
