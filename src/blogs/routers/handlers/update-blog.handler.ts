@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { blogsRepository } from "../../repositories/blogs.repository";
-import { BlogViewModel } from "../../types/blog";
 import { HttpStatus } from "../../../core/types/http-statuses";
 import { createErrorMessages } from "../../../core/middleware/validations/input-validtion-result.middleware";
 import {BlogInputModel} from "../../dto/blog.input-dto";

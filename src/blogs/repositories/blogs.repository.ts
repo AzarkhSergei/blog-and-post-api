@@ -1,5 +1,4 @@
 import { BlogViewModel } from "../types/blog";
-import { db } from "../../db/in-memory.db";
 import { BlogInputModel } from "../dto/blog.input-dto";
 import {blogCollection} from "../../db/mongo.db";
 
