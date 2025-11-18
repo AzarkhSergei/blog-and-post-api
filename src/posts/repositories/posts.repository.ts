@@ -1,14 +1,17 @@
 import { PostViewModel } from "../types/post";
 import { PostInputModel } from "../dto/post.input-dto";
 import { postCollection } from "../../db/mongo.db";
+import {mapToPostViewModel} from "../routers/mappers/map-to-post-view-model.util";
 
 export const postsRepository = {
   async findAll(): Promise<PostViewModel[]> {
-    return await postCollection.find().toArray();
+    const posts = await postCollection.find().toArray();
+    return posts.map(mapToPostViewModel)
   },
 
   async findById(id: string): Promise<PostViewModel | null> {
-    return (await postCollection.findOne({ id })) ?? null;
+    const post = await postCollection.findOne({ id });
+    return post ? mapToPostViewModel(post) : null;
   },
 
   async create(newPost: PostViewModel): Promise<PostViewModel> {
