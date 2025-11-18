@@ -15,7 +15,8 @@ export const blogsRepository = {
   },
 
   async create(newBlog: BlogViewModel): Promise<BlogViewModel> {
-    await blogCollection.insertOne(newBlog);
+    const blogToInsert = { ...newBlog };
+    await blogCollection.insertOne(blogToInsert);
     return newBlog;
   },
 

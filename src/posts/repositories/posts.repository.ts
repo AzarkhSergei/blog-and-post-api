@@ -15,7 +15,8 @@ export const postsRepository = {
   },
 
   async create(newPost: PostViewModel): Promise<PostViewModel> {
-    await postCollection.insertOne(newPost);
+    const postToInsert = {...newPost}
+    await postCollection.insertOne(postToInsert);
     return newPost;
   },
 
