@@ -1,42 +1,41 @@
 import { BlogViewModel } from "../types/blog";
 import { db } from "../../db/in-memory.db";
 import { BlogInputModel } from "../dto/blog.input-dto";
+import {blogCollection} from "../../db/mongo.db";
 
 export const blogsRepository = {
-  findAll(): BlogViewModel[] {
-    return db.blogs;
+  async findAll(): Promise<BlogViewModel[]> {
+    return await blogCollection.find().toArray();
   },
 
-  findById(id: string): BlogViewModel | null {
-    return db.blogs.find((b) => b.id === id) ?? null;
+  async findById(id: string): Promise<BlogViewModel | null> {
+    return await blogCollection.findOne({ id }) ?? null;
   },
 
-  create(newBlog: BlogViewModel): BlogViewModel {
-    db.blogs.push(newBlog);
+  async create(newBlog: BlogViewModel): Promise<BlogViewModel> {
+    await blogCollection.insertOne(newBlog);
     return newBlog;
   },
 
-  update(id: string, data: BlogInputModel): void {
-    const blog = db.blogs.find((b) => b.id === id);
+  async update(id: string, data: BlogInputModel): Promise<void> {
+    const updateResult = await blogCollection.updateOne({ id },
+      { $set:
+          { name: data.name,
+            description: data.description,
+            websiteUrl: data.websiteUrl }
+      });
 
-    if (!blog) {
+    if (updateResult.matchedCount < 1) {
       throw new Error("Blog does not exist");
     }
-
-    blog.name = data.name;
-    blog.description = data.description;
-    blog.websiteUrl = data.websiteUrl;
-    return;
   },
 
-  delete(id: string): void {
-    const index = db.blogs.findIndex((b) => b.id === id);
+  async delete(id: string): Promise<void> {
+    const deleteResult = await blogCollection.deleteOne({ id });
 
-    if (index === -1) {
+    if (deleteResult.deletedCount < 1) {
       throw new Error("Blog does not exist");
     }
-
-    db.blogs.splice(index, 1);
-    return;
   },
+
 };

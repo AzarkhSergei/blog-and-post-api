@@ -3,13 +3,14 @@ import { blogsRepository } from "../../repositories/blogs.repository";
 import { BlogViewModel } from "../../types/blog";
 import { HttpStatus } from "../../../core/types/http-statuses";
 import { createErrorMessages } from "../../../core/middleware/validations/input-validtion-result.middleware";
+import {BlogInputModel} from "../../dto/blog.input-dto";
 
-export function updateBlogHandler(
-  req: Request<{ id: string }, {}, BlogViewModel>,
+export async function updateBlogHandler(
+  req: Request<{ id: string }, {}, BlogInputModel>,
   res: Response,
 ) {
   const id = req.params.id;
-  const blog = blogsRepository.findById(id);
+  const blog = await blogsRepository.findById(id);
 
   if (!blog) {
     return res
@@ -17,6 +18,6 @@ export function updateBlogHandler(
       .send(createErrorMessages([{ message: "Blog not found", field: "id" }]));
   }
 
-  blogsRepository.update(id, req.body);
+  await blogsRepository.update(id, req.body);
   return res.sendStatus(HttpStatus.NoContent);
 }

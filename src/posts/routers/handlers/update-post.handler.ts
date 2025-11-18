@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { HttpStatus } from "../../../core/types/http-statuses";
 import { createErrorMessages } from "../../../core/middleware/validations/input-validtion-result.middleware";
-import { PostViewModel } from "../../types/post";
 import { postsRepository } from "../../repositories/posts.repository";
+import {PostInputModel} from "../../dto/post.input-dto";
 
-export function updatePostHandler(
-  req: Request<{ id: string }, {}, PostViewModel>,
+export async function updatePostHandler(
+  req: Request<{ id: string }, {}, PostInputModel>,
   res: Response,
 ) {
   const id = req.params.id;
-  const post = postsRepository.findById(id);
+  const post = await postsRepository.findById(id);
 
   if (!post) {
     return res
@@ -17,6 +17,6 @@ export function updatePostHandler(
       .send(createErrorMessages([{ message: "Post not found", field: "id" }]));
   }
 
-  postsRepository.update(id, req.body);
+  await postsRepository.update(id, req.body);
   return res.sendStatus(HttpStatus.NoContent);
 }
