@@ -9,7 +9,7 @@ export function mapToPostViewModel(dbPost: PostDbModel): PostViewModel{
     shortDescription: dbPost.shortDescription,
     content: dbPost.content,
     blogId: dbPost.blogId,
-    blogName: dbPost.blogId,
+    blogName: dbPost.blogName,
     createdAt: dbPost.createdAt
   }
 }
