@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { blogsRepository } from "../../repositories/blogs.repository";
 import { HttpStatus } from "../../../core/types/http-statuses";
 import { createErrorMessages } from "../../../core/middleware/validations/input-validtion-result.middleware";
-import {BlogInputModel} from "../../dto/blog.input-dto";
+import { BlogInputModel } from "../../dto/blog.input-dto";
 
 export async function updateBlogHandler(
   req: Request<{ id: string }, {}, BlogInputModel>,

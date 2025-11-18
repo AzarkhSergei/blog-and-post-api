@@ -1,6 +1,6 @@
 import { BlogViewModel } from "../types/blog";
 import { BlogInputModel } from "../dto/blog.input-dto";
-import {blogCollection} from "../../db/mongo.db";
+import { blogCollection } from "../../db/mongo.db";
 
 export const blogsRepository = {
   async findAll(): Promise<BlogViewModel[]> {
@@ -8,7 +8,7 @@ export const blogsRepository = {
   },
 
   async findById(id: string): Promise<BlogViewModel | null> {
-    return await blogCollection.findOne({ id }) ?? null;
+    return (await blogCollection.findOne({ id })) ?? null;
   },
 
   async create(newBlog: BlogViewModel): Promise<BlogViewModel> {
@@ -17,12 +17,16 @@ export const blogsRepository = {
   },
 
   async update(id: string, data: BlogInputModel): Promise<void> {
-    const updateResult = await blogCollection.updateOne({ id },
-      { $set:
-          { name: data.name,
-            description: data.description,
-            websiteUrl: data.websiteUrl }
-      });
+    const updateResult = await blogCollection.updateOne(
+      { id },
+      {
+        $set: {
+          name: data.name,
+          description: data.description,
+          websiteUrl: data.websiteUrl,
+        },
+      },
+    );
 
     if (updateResult.matchedCount < 1) {
       throw new Error("Blog does not exist");
@@ -36,5 +40,4 @@ export const blogsRepository = {
       throw new Error("Blog does not exist");
     }
   },
-
 };

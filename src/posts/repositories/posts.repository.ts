@@ -1,6 +1,6 @@
 import { PostViewModel } from "../types/post";
 import { PostInputModel } from "../dto/post.input-dto";
-import { postCollection } from '../../db/mongo.db';
+import { postCollection } from "../../db/mongo.db";
 
 export const postsRepository = {
   async findAll(): Promise<PostViewModel[]> {
@@ -8,7 +8,7 @@ export const postsRepository = {
   },
 
   async findById(id: string): Promise<PostViewModel | null> {
-    return await postCollection.findOne({ id }) ?? null;
+    return (await postCollection.findOne({ id })) ?? null;
   },
 
   async create(newPost: PostViewModel): Promise<PostViewModel> {
@@ -17,13 +17,17 @@ export const postsRepository = {
   },
 
   async update(id: string, data: PostInputModel): Promise<void> {
-    const updateResult = await postCollection.updateOne({ id },
-      {$set :
-          { title: data.title,
-            shortDescription: data.shortDescription,
-            content: data.content,
-            blogId: data.blogId }
-      });
+    const updateResult = await postCollection.updateOne(
+      { id },
+      {
+        $set: {
+          title: data.title,
+          shortDescription: data.shortDescription,
+          content: data.content,
+          blogId: data.blogId,
+        },
+      },
+    );
 
     if (updateResult.matchedCount < 1) {
       throw new Error("Post does not exist");

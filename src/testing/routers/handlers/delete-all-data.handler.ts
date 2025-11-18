@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { HttpStatus } from "../../../core/types/http-statuses";
-import { db } from "../../../db/in-memory.db";
+import { blogCollection, postCollection } from "../../../db/mongo.db";
 
-export function deleteAllDataHandler(req: Request, res: Response) {
-  db.blogs = [];
-  db.posts = [];
+export async function deleteAllDataHandler(req: Request, res: Response) {
+  await blogCollection.deleteMany();
+  await postCollection.deleteMany();
   res.sendStatus(HttpStatus.NoContent);
 }
