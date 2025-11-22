@@ -1,12 +1,12 @@
 import { BlogViewModel } from "../types/blog";
 import { BlogInputModel } from "../dto/blog.input-dto";
 import { blogCollection } from "../../db/mongo.db";
-import {mapToBlogViewModel} from "../routers/mappers /map-to-blog-view-model.util";
+import { mapToBlogViewModel } from "../routers/mappers/map-to-blog-view-model.util";
 
 export const blogsRepository = {
   async findAll(): Promise<BlogViewModel[]> {
     const blogs = await blogCollection.find().toArray();
-    return blogs.map(mapToBlogViewModel)
+    return blogs.map(mapToBlogViewModel);
   },
 
   async findById(id: string): Promise<BlogViewModel | null> {

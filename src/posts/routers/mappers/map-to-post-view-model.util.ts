@@ -1,8 +1,7 @@
-import {PostDbModel} from "../../dto/post.output-dto";
-import {PostViewModel} from "../../types/post";
+import { PostDbModel } from "../../dto/post.output-dto";
+import { PostViewModel } from "../../types/post";
 
-
-export function mapToPostViewModel(dbPost: PostDbModel): PostViewModel{
+export function mapToPostViewModel(dbPost: PostDbModel): PostViewModel {
   return {
     id: dbPost.id,
     title: dbPost.title,
@@ -10,6 +9,6 @@ export function mapToPostViewModel(dbPost: PostDbModel): PostViewModel{
     content: dbPost.content,
     blogId: dbPost.blogId,
     blogName: dbPost.blogName,
-    createdAt: dbPost.createdAt
-  }
+    createdAt: dbPost.createdAt,
+  };
 }
